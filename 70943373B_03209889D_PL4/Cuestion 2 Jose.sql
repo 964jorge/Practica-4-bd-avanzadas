@@ -3,10 +3,16 @@ INSERT INTO Grupo VALUES
 (2,'Coldplay','Pop Rock','UK','coldplay.com'),
 (3,'Muse','Rock','UK','muse.mu');
 
+INSERT INTO grupo values
+(4, 'Tan Sionica', 'Tradicional', 'IS', 'laTierraPrometida.is');
+
 INSERT INTO Discos VALUES
 (1,'A Night at the Opera','1975-11-21','Rock','Vinilo',1),
 (2,'Parachutes','2000-07-10','Pop', 'CD',2),
 (3,'Absolution','2003-09-15','Rock','CD',3);
+
+INSERT INTO discos VALUES
+(4, '', '1029-03-12', 'Tradicional', 'Tabla de arcilla', 4);
 
 INSERT INTO Canciones VALUES
 (1,'Bohemian Rhapsody','Queen','1975-10-31',355,1),
@@ -15,6 +21,8 @@ INSERT INTO Canciones VALUES
 (4,'Fix You','Coldplay','2005-09-05',300,2),
 (5,'Time is Running Out','Muse','2003-08-18',230,3);
 
+INSERT INTO canciones VALUES
+(4, 'Que bonito es Israel', 'Tan Sionica', '1029-04-11', 3000, 4)
 
 --Conculta en si:
 SELECT
