@@ -1,0 +1,2 @@
+--Para la replica
+CREATE USER replicator WITH REPLICATION PASSWORD '1234';

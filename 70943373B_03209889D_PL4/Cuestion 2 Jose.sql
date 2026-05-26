@@ -12,7 +12,7 @@ INSERT INTO Discos VALUES
 (3,'Absolution','2003-09-15','Rock','CD',3);
 
 INSERT INTO discos VALUES
-(4, '', '1029-03-12', 'Tradicional', 'Tabla de arcilla', 4);
+(4, 'Monedita de mi narizon', '1029-03-12', 'Tradicional', 'Tabla de arcilla', 4);
 
 INSERT INTO Canciones VALUES
 (1,'Bohemian Rhapsody','Queen','1975-10-31',355,1),
@@ -22,7 +22,7 @@ INSERT INTO Canciones VALUES
 (5,'Time is Running Out','Muse','2003-08-18',230,3);
 
 INSERT INTO canciones VALUES
-(4, 'Que bonito es Israel', 'Tan Sionica', '1029-04-11', 3000, 4)
+(6, 'Que bonito es Israel', 'Tan Sionica', '1029-04-11', 3000, 4);
 
 --Conculta en si:
 SELECT
