@@ -1,0 +1,6 @@
+70943373B_03209889D |  | 2026-05-26 18:43:09 CEST | LOG:  el sistema de bases de datos fue apagado en 2026-05-26 18:43:07 CEST
+70943373B_03209889D |  | 2026-05-26 18:43:20 CEST | LOG:  empezando checkpoint: force wait
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 18:43:20 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 18:43:20 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+70943373B_03209889D |  | 2026-05-26 18:43:20 CEST | LOG:  checkpoint completo: escritos 1 búfers (0.0%); escritos 3 búfers SLRU; 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.103 s, sync=0.004 s, total=0.141 s; archivos sincronizados=3, más largo=0.003 s, promedio=0.002 s; distancia=7979 kB, estimación=7979 kB; lsn=0/2000080, lsn de redo=0/2000028

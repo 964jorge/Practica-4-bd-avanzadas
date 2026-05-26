@@ -1,0 +1,976 @@
+70943373B_03209889D |  | 2026-05-26 23:38:41 CEST | LOG:  el sistema de bases de datos fue apagado en 2026-05-26 23:38:34 CEST
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:38:41 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:38:41 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:38:42 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:38:42 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:38:43 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:38:43 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+70943373B_03209889D |  | 2026-05-26 23:38:43 CEST | WARNING:  el archivado del archivo de WAL «000000010000000000000001» falló demasiadas veces, se tratará de nuevo más tarde
+70943373B_03209889D | 192.168.50.170(51220) | 2026-05-26 23:38:44 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51220) | 2026-05-26 23:38:44 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/110901A8, leyendo WAL desde 0/11090170.
+70943373B_03209889D | 192.168.50.170(51220) | 2026-05-26 23:38:44 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51220) | 2026-05-26 23:38:44 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/11090170
+70943373B_03209889D | 192.168.50.170(51220) | 2026-05-26 23:38:44 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51220) | 2026-05-26 23:38:44 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 127.0.0.1(51221) | 2026-05-26 23:39:00 CEST | LOG:  ejecutar <unnamed>: DROP TABLE IF EXISTS Entradas CASCADE
+70943373B_03209889D | 127.0.0.1(51221) | 2026-05-26 23:39:00 CEST | LOG:  ejecutar <unnamed>: DROP TABLE IF EXISTS Grupos_Tocan_Conciertos CASCADE
+70943373B_03209889D | 127.0.0.1(51221) | 2026-05-26 23:39:00 CEST | LOG:  ejecutar <unnamed>: DROP TABLE IF EXISTS Conciertos CASCADE
+70943373B_03209889D | 127.0.0.1(51221) | 2026-05-26 23:39:00 CEST | LOG:  ejecutar <unnamed>: DROP FOREIGN TABLE IF EXISTS Canciones CASCADE
+70943373B_03209889D | 127.0.0.1(51221) | 2026-05-26 23:39:00 CEST | LOG:  ejecutar <unnamed>: DROP FOREIGN TABLE IF EXISTS Discos CASCADE
+70943373B_03209889D | 127.0.0.1(51221) | 2026-05-26 23:39:00 CEST | LOG:  ejecutar <unnamed>: DROP TABLE IF EXISTS Musicos CASCADE
+70943373B_03209889D | 127.0.0.1(51221) | 2026-05-26 23:39:00 CEST | LOG:  ejecutar <unnamed>: DROP FOREIGN TABLE IF EXISTS Grupo CASCADE
+70943373B_03209889D | 127.0.0.1(51221) | 2026-05-26 23:39:00 CEST | LOG:  ejecutar <unnamed>: DROP USER MAPPING FOR postgres SERVER maestro1_fdw
+70943373B_03209889D | 127.0.0.1(51221) | 2026-05-26 23:39:00 CEST | LOG:  ejecutar <unnamed>: DROP SERVER maestro1_fdw
+70943373B_03209889D | 127.0.0.1(51221) | 2026-05-26 23:39:00 CEST | LOG:  ejecutar <unnamed>: CREATE SERVER maestro1_fdw
+	FOREIGN DATA WRAPPER postgres_fdw
+	OPTIONS (
+	   host '192.168.50.140',
+	   dbname 'postgres',
+	   port '5432'
+	)
+70943373B_03209889D | 127.0.0.1(51221) | 2026-05-26 23:39:00 CEST | LOG:  ejecutar <unnamed>: CREATE USER MAPPING FOR postgres
+	SERVER maestro1_fdw
+	OPTIONS (
+	
+	    user 'postgres',
+	    password 'Jose83471'
+	
+	    )
+70943373B_03209889D | 127.0.0.1(51221) | 2026-05-26 23:39:00 CEST | LOG:  ejecutar <unnamed>: IMPORT FOREIGN SCHEMA public
+	LIMIT TO (canciones, discos, grupo)
+	FROM SERVER maestro1_fdw
+	INTO public
+70943373B_03209889D | 127.0.0.1(51221) | 2026-05-26 23:39:01 CEST | LOG:  ejecutar <unnamed>: CREATE TABLE Musicos (
+	    Codigo_musico INTEGER PRIMARY KEY,
+	    DNI CHAR(10) UNIQUE,
+	    Nombre TEXT,
+	    Direccion TEXT,
+	    Codigo_Postal INTEGER,
+	    Ciudad TEXT,
+	    Provincia TEXT,
+	    Telefono BIGINT,
+	    Instrumentos TEXT,
+	    Codigo_grupo_Grupo INTEGER
+	)
+70943373B_03209889D | 127.0.0.1(51221) | 2026-05-26 23:39:01 CEST | LOG:  ejecutar <unnamed>: CREATE TABLE Conciertos (
+	    Codigo_concierto INTEGER PRIMARY KEY,
+	    Fecha_realizacion DATE,
+	    Pais TEXT,
+	    Ciudad TEXT,
+	    Recinto TEXT
+	)
+70943373B_03209889D | 127.0.0.1(51221) | 2026-05-26 23:39:01 CEST | LOG:  ejecutar <unnamed>: CREATE TABLE Grupos_Tocan_Conciertos (
+	    Codigo_grupo_Grupo INTEGER,
+	    Codigo_concierto_Conciertos INTEGER,
+	    PRIMARY KEY (Codigo_grupo_Grupo, Codigo_concierto_Conciertos),
+	    CONSTRAINT Conciertos_fk FOREIGN KEY (Codigo_concierto_Conciertos)
+	        REFERENCES Conciertos(Codigo_concierto)
+	        ON DELETE RESTRICT ON UPDATE RESTRICT
+	)
+70943373B_03209889D | 127.0.0.1(51221) | 2026-05-26 23:39:01 CEST | LOG:  ejecutar <unnamed>: CREATE TABLE Entradas (
+	    Codigo_entrada INTEGER PRIMARY KEY,
+	    Localidad TEXT,
+	    Precio NUMERIC(6,2),
+	    Usuario TEXT,
+	    Codigo_concierto_Conciertos INTEGER,
+	    CONSTRAINT Conciertos_fk FOREIGN KEY (Codigo_concierto_Conciertos)
+	        REFERENCES Conciertos(Codigo_concierto)
+	        ON DELETE RESTRICT ON UPDATE RESTRICT
+	)
+70943373B_03209889D | 127.0.0.1(51225) | 2026-05-26 23:39:30 CEST | LOG:  ejecutar <unnamed>: INSERT INTO Conciertos VALUES
+	(1,'2024-06-10','Spain','Madrid','Wizink Center'),
+	(2,'2024-06-12','Spain','Barcelona','Palau Sant Jordi'),
+	(3,'2024-07-01','France','Paris','Accor Arena')
+70943373B_03209889D | 192.168.50.170(51220) | 2026-05-26 23:39:30 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51220) | 2026-05-26 23:39:30 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51220) | 2026-05-26 23:39:30 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51220) | 2026-05-26 23:39:30 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 127.0.0.1(51225) | 2026-05-26 23:39:30 CEST | LOG:  ejecutar <unnamed>: INSERT INTO conciertos VALUES
+	(4, '1026-06-22', 'Israel', 'Tel-Aviv', 'La meca')
+70943373B_03209889D | 127.0.0.1(51225) | 2026-05-26 23:39:30 CEST | LOG:  ejecutar <unnamed>: INSERT INTO Grupos_Tocan_Conciertos VALUES
+	(1,1),
+	(1,2),
+	(2,2),
+	(2,3),
+	(3,3)
+70943373B_03209889D | 127.0.0.1(51225) | 2026-05-26 23:39:30 CEST | LOG:  ejecutar <unnamed>: INSERT INTO grupos_tocan_conciertos values
+	(4, 4)
+70943373B_03209889D | 192.168.50.170(51226) | 2026-05-26 23:39:30 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51226) | 2026-05-26 23:39:30 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51226) | 2026-05-26 23:39:30 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51226) | 2026-05-26 23:39:30 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51226) | 2026-05-26 23:39:30 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51226) | 2026-05-26 23:39:30 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51227) | 2026-05-26 23:39:35 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51227) | 2026-05-26 23:39:35 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51227) | 2026-05-26 23:39:35 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51227) | 2026-05-26 23:39:35 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51227) | 2026-05-26 23:39:35 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51227) | 2026-05-26 23:39:35 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51228) | 2026-05-26 23:39:40 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51228) | 2026-05-26 23:39:40 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51228) | 2026-05-26 23:39:40 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51228) | 2026-05-26 23:39:40 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51228) | 2026-05-26 23:39:40 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51228) | 2026-05-26 23:39:40 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:39:43 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:39:43 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:39:44 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:39:44 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+70943373B_03209889D | 192.168.50.170(51229) | 2026-05-26 23:39:45 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51229) | 2026-05-26 23:39:45 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51229) | 2026-05-26 23:39:45 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51229) | 2026-05-26 23:39:45 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51229) | 2026-05-26 23:39:45 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51229) | 2026-05-26 23:39:45 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51229) | 2026-05-26 23:39:45 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51229) | 2026-05-26 23:39:45 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51229) | 2026-05-26 23:39:45 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51229) | 2026-05-26 23:39:45 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:39:45 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:39:45 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+70943373B_03209889D |  | 2026-05-26 23:39:45 CEST | WARNING:  el archivado del archivo de WAL «000000010000000000000001» falló demasiadas veces, se tratará de nuevo más tarde
+70943373B_03209889D | 192.168.50.170(51230) | 2026-05-26 23:39:50 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51230) | 2026-05-26 23:39:50 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51230) | 2026-05-26 23:39:50 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51230) | 2026-05-26 23:39:50 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51230) | 2026-05-26 23:39:50 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51230) | 2026-05-26 23:39:50 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51230) | 2026-05-26 23:39:50 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51230) | 2026-05-26 23:39:50 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51230) | 2026-05-26 23:39:50 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51230) | 2026-05-26 23:39:50 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51231) | 2026-05-26 23:39:55 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51231) | 2026-05-26 23:39:55 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51231) | 2026-05-26 23:39:55 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51231) | 2026-05-26 23:39:55 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51231) | 2026-05-26 23:39:55 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51231) | 2026-05-26 23:39:55 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51231) | 2026-05-26 23:39:55 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51231) | 2026-05-26 23:39:55 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51231) | 2026-05-26 23:39:55 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51231) | 2026-05-26 23:39:55 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51232) | 2026-05-26 23:40:00 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51232) | 2026-05-26 23:40:00 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51232) | 2026-05-26 23:40:00 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51232) | 2026-05-26 23:40:00 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51232) | 2026-05-26 23:40:00 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51232) | 2026-05-26 23:40:00 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51232) | 2026-05-26 23:40:00 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51232) | 2026-05-26 23:40:00 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51232) | 2026-05-26 23:40:00 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51232) | 2026-05-26 23:40:00 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51234) | 2026-05-26 23:40:05 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51234) | 2026-05-26 23:40:05 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51234) | 2026-05-26 23:40:05 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51234) | 2026-05-26 23:40:05 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51234) | 2026-05-26 23:40:05 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51234) | 2026-05-26 23:40:05 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51234) | 2026-05-26 23:40:05 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51234) | 2026-05-26 23:40:05 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51234) | 2026-05-26 23:40:05 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51234) | 2026-05-26 23:40:05 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51235) | 2026-05-26 23:40:10 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51235) | 2026-05-26 23:40:10 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51235) | 2026-05-26 23:40:10 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51235) | 2026-05-26 23:40:10 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51235) | 2026-05-26 23:40:10 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51235) | 2026-05-26 23:40:10 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51235) | 2026-05-26 23:40:10 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51235) | 2026-05-26 23:40:10 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51235) | 2026-05-26 23:40:10 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51235) | 2026-05-26 23:40:10 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51236) | 2026-05-26 23:40:15 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51236) | 2026-05-26 23:40:15 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51236) | 2026-05-26 23:40:15 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51236) | 2026-05-26 23:40:15 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51236) | 2026-05-26 23:40:15 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51236) | 2026-05-26 23:40:15 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51236) | 2026-05-26 23:40:15 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51236) | 2026-05-26 23:40:15 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51236) | 2026-05-26 23:40:15 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51236) | 2026-05-26 23:40:15 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51239) | 2026-05-26 23:40:20 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51239) | 2026-05-26 23:40:20 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51239) | 2026-05-26 23:40:20 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51239) | 2026-05-26 23:40:20 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51239) | 2026-05-26 23:40:20 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51239) | 2026-05-26 23:40:20 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51239) | 2026-05-26 23:40:20 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51239) | 2026-05-26 23:40:20 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51239) | 2026-05-26 23:40:20 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51239) | 2026-05-26 23:40:20 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51240) | 2026-05-26 23:40:25 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51240) | 2026-05-26 23:40:25 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51240) | 2026-05-26 23:40:25 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51240) | 2026-05-26 23:40:25 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51240) | 2026-05-26 23:40:25 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51240) | 2026-05-26 23:40:25 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51240) | 2026-05-26 23:40:25 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51240) | 2026-05-26 23:40:25 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51240) | 2026-05-26 23:40:25 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51240) | 2026-05-26 23:40:25 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51241) | 2026-05-26 23:40:30 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51241) | 2026-05-26 23:40:30 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51241) | 2026-05-26 23:40:30 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51241) | 2026-05-26 23:40:30 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51241) | 2026-05-26 23:40:30 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51241) | 2026-05-26 23:40:30 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51241) | 2026-05-26 23:40:30 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51241) | 2026-05-26 23:40:30 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51241) | 2026-05-26 23:40:30 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51241) | 2026-05-26 23:40:30 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51248) | 2026-05-26 23:40:35 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51248) | 2026-05-26 23:40:35 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51248) | 2026-05-26 23:40:35 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51248) | 2026-05-26 23:40:35 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51248) | 2026-05-26 23:40:35 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51248) | 2026-05-26 23:40:35 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51248) | 2026-05-26 23:40:35 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51248) | 2026-05-26 23:40:35 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51248) | 2026-05-26 23:40:35 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51248) | 2026-05-26 23:40:35 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51250) | 2026-05-26 23:40:40 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51250) | 2026-05-26 23:40:40 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51250) | 2026-05-26 23:40:40 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51250) | 2026-05-26 23:40:40 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51250) | 2026-05-26 23:40:40 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51250) | 2026-05-26 23:40:40 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51250) | 2026-05-26 23:40:40 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51250) | 2026-05-26 23:40:40 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51250) | 2026-05-26 23:40:40 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51250) | 2026-05-26 23:40:40 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51252) | 2026-05-26 23:40:45 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51252) | 2026-05-26 23:40:45 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51252) | 2026-05-26 23:40:45 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51252) | 2026-05-26 23:40:45 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51252) | 2026-05-26 23:40:45 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51252) | 2026-05-26 23:40:45 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51252) | 2026-05-26 23:40:45 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51252) | 2026-05-26 23:40:45 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51252) | 2026-05-26 23:40:45 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51252) | 2026-05-26 23:40:45 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:40:45 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:40:45 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:40:46 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:40:46 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:40:47 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:40:47 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+70943373B_03209889D |  | 2026-05-26 23:40:47 CEST | WARNING:  el archivado del archivo de WAL «000000010000000000000001» falló demasiadas veces, se tratará de nuevo más tarde
+70943373B_03209889D | 192.168.50.170(51256) | 2026-05-26 23:40:50 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51256) | 2026-05-26 23:40:50 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51256) | 2026-05-26 23:40:50 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51256) | 2026-05-26 23:40:50 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51256) | 2026-05-26 23:40:50 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51256) | 2026-05-26 23:40:50 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51256) | 2026-05-26 23:40:50 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51256) | 2026-05-26 23:40:50 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51256) | 2026-05-26 23:40:50 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51256) | 2026-05-26 23:40:50 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51257) | 2026-05-26 23:40:55 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51257) | 2026-05-26 23:40:55 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51257) | 2026-05-26 23:40:55 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51257) | 2026-05-26 23:40:55 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51257) | 2026-05-26 23:40:55 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51257) | 2026-05-26 23:40:55 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51257) | 2026-05-26 23:40:55 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51257) | 2026-05-26 23:40:55 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51257) | 2026-05-26 23:40:55 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51257) | 2026-05-26 23:40:55 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51266) | 2026-05-26 23:41:00 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51266) | 2026-05-26 23:41:00 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51266) | 2026-05-26 23:41:00 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51266) | 2026-05-26 23:41:00 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51266) | 2026-05-26 23:41:00 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51266) | 2026-05-26 23:41:00 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51266) | 2026-05-26 23:41:00 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51266) | 2026-05-26 23:41:00 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51266) | 2026-05-26 23:41:00 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51266) | 2026-05-26 23:41:00 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51267) | 2026-05-26 23:41:05 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51267) | 2026-05-26 23:41:05 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51267) | 2026-05-26 23:41:05 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51267) | 2026-05-26 23:41:05 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51267) | 2026-05-26 23:41:05 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51267) | 2026-05-26 23:41:05 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51267) | 2026-05-26 23:41:05 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51267) | 2026-05-26 23:41:05 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51267) | 2026-05-26 23:41:05 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51267) | 2026-05-26 23:41:05 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51268) | 2026-05-26 23:41:10 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51268) | 2026-05-26 23:41:10 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51268) | 2026-05-26 23:41:10 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51268) | 2026-05-26 23:41:10 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51268) | 2026-05-26 23:41:10 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51268) | 2026-05-26 23:41:10 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51268) | 2026-05-26 23:41:10 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51268) | 2026-05-26 23:41:10 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51268) | 2026-05-26 23:41:10 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51268) | 2026-05-26 23:41:10 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51272) | 2026-05-26 23:41:18 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51272) | 2026-05-26 23:41:18 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51272) | 2026-05-26 23:41:18 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51272) | 2026-05-26 23:41:18 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51272) | 2026-05-26 23:41:18 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51272) | 2026-05-26 23:41:18 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51272) | 2026-05-26 23:41:18 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51272) | 2026-05-26 23:41:18 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51272) | 2026-05-26 23:41:18 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51272) | 2026-05-26 23:41:18 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51273) | 2026-05-26 23:41:20 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51273) | 2026-05-26 23:41:20 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51273) | 2026-05-26 23:41:20 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51273) | 2026-05-26 23:41:20 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51273) | 2026-05-26 23:41:20 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51273) | 2026-05-26 23:41:20 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51273) | 2026-05-26 23:41:20 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51273) | 2026-05-26 23:41:20 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51273) | 2026-05-26 23:41:20 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51273) | 2026-05-26 23:41:20 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51274) | 2026-05-26 23:41:25 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51274) | 2026-05-26 23:41:25 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51274) | 2026-05-26 23:41:25 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51274) | 2026-05-26 23:41:25 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51274) | 2026-05-26 23:41:25 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51274) | 2026-05-26 23:41:25 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51274) | 2026-05-26 23:41:25 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51274) | 2026-05-26 23:41:25 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51274) | 2026-05-26 23:41:25 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51274) | 2026-05-26 23:41:25 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51275) | 2026-05-26 23:41:30 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51275) | 2026-05-26 23:41:30 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51275) | 2026-05-26 23:41:30 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51275) | 2026-05-26 23:41:30 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51275) | 2026-05-26 23:41:30 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51275) | 2026-05-26 23:41:30 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51275) | 2026-05-26 23:41:30 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51275) | 2026-05-26 23:41:30 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51275) | 2026-05-26 23:41:30 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51275) | 2026-05-26 23:41:30 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51276) | 2026-05-26 23:41:35 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51276) | 2026-05-26 23:41:35 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51276) | 2026-05-26 23:41:35 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51276) | 2026-05-26 23:41:35 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51276) | 2026-05-26 23:41:35 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51276) | 2026-05-26 23:41:35 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51276) | 2026-05-26 23:41:35 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51276) | 2026-05-26 23:41:35 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51276) | 2026-05-26 23:41:35 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51276) | 2026-05-26 23:41:35 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51277) | 2026-05-26 23:41:40 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51277) | 2026-05-26 23:41:40 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51277) | 2026-05-26 23:41:40 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51277) | 2026-05-26 23:41:40 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51277) | 2026-05-26 23:41:40 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51277) | 2026-05-26 23:41:40 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51277) | 2026-05-26 23:41:40 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51277) | 2026-05-26 23:41:40 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51277) | 2026-05-26 23:41:40 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51277) | 2026-05-26 23:41:40 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51278) | 2026-05-26 23:41:45 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51278) | 2026-05-26 23:41:45 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51278) | 2026-05-26 23:41:45 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51278) | 2026-05-26 23:41:45 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51278) | 2026-05-26 23:41:45 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51278) | 2026-05-26 23:41:45 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51278) | 2026-05-26 23:41:45 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51278) | 2026-05-26 23:41:45 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51278) | 2026-05-26 23:41:45 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51278) | 2026-05-26 23:41:45 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:41:47 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:41:47 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:41:48 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:41:48 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:41:49 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:41:49 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+70943373B_03209889D |  | 2026-05-26 23:41:49 CEST | WARNING:  el archivado del archivo de WAL «000000010000000000000001» falló demasiadas veces, se tratará de nuevo más tarde
+70943373B_03209889D | 192.168.50.170(51281) | 2026-05-26 23:41:50 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51281) | 2026-05-26 23:41:50 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51281) | 2026-05-26 23:41:50 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51281) | 2026-05-26 23:41:50 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51281) | 2026-05-26 23:41:50 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51281) | 2026-05-26 23:41:50 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51281) | 2026-05-26 23:41:50 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51281) | 2026-05-26 23:41:50 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51281) | 2026-05-26 23:41:50 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51281) | 2026-05-26 23:41:50 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51282) | 2026-05-26 23:41:55 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51282) | 2026-05-26 23:41:55 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51282) | 2026-05-26 23:41:55 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51282) | 2026-05-26 23:41:55 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51282) | 2026-05-26 23:41:55 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51282) | 2026-05-26 23:41:55 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51282) | 2026-05-26 23:41:55 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51282) | 2026-05-26 23:41:55 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51282) | 2026-05-26 23:41:55 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51282) | 2026-05-26 23:41:55 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51283) | 2026-05-26 23:42:00 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51283) | 2026-05-26 23:42:00 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51283) | 2026-05-26 23:42:00 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51283) | 2026-05-26 23:42:00 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51283) | 2026-05-26 23:42:00 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51283) | 2026-05-26 23:42:00 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51283) | 2026-05-26 23:42:00 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51283) | 2026-05-26 23:42:00 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51283) | 2026-05-26 23:42:00 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51283) | 2026-05-26 23:42:00 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:42:49 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:42:49 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:42:51 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:42:51 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:42:52 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:42:52 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+70943373B_03209889D |  | 2026-05-26 23:42:52 CEST | WARNING:  el archivado del archivo de WAL «000000010000000000000001» falló demasiadas veces, se tratará de nuevo más tarde
+70943373B_03209889D |  | 2026-05-26 23:43:41 CEST | LOG:  empezando checkpoint: time
+70943373B_03209889D |  | 2026-05-26 23:43:51 CEST | LOG:  checkpoint completo: escritos 92 búfers (0.6%); escritos 3 búfers SLRU; 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=10.107 s, sync=0.030 s, total=10.150 s; archivos sincronizados=61, más largo=0.002 s, promedio=0.001 s; distancia=612 kB, estimación=612 kB; lsn=0/120991E0, lsn de redo=0/12099150
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:43:52 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:43:52 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:43:53 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:43:53 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:43:54 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:43:54 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+70943373B_03209889D |  | 2026-05-26 23:43:54 CEST | WARNING:  el archivado del archivo de WAL «000000010000000000000001» falló demasiadas veces, se tratará de nuevo más tarde
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:44:54 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:44:54 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:44:55 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:44:55 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:44:56 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:44:56 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+70943373B_03209889D |  | 2026-05-26 23:44:56 CEST | WARNING:  el archivado del archivo de WAL «000000010000000000000001» falló demasiadas veces, se tratará de nuevo más tarde
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:45:56 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:45:56 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:45:57 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:45:57 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:45:58 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:45:58 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+70943373B_03209889D |  | 2026-05-26 23:45:58 CEST | WARNING:  el archivado del archivo de WAL «000000010000000000000001» falló demasiadas veces, se tratará de nuevo más tarde
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:46:58 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:46:58 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:46:59 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:46:59 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:47:00 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:47:00 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+70943373B_03209889D |  | 2026-05-26 23:47:00 CEST | WARNING:  el archivado del archivo de WAL «000000010000000000000001» falló demasiadas veces, se tratará de nuevo más tarde
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:48:00 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:48:00 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:48:01 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:48:01 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:48:02 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:48:02 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+70943373B_03209889D |  | 2026-05-26 23:48:02 CEST | WARNING:  el archivado del archivo de WAL «000000010000000000000001» falló demasiadas veces, se tratará de nuevo más tarde
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:49:02 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:49:02 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:49:03 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:49:03 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:49:04 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:49:04 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+70943373B_03209889D |  | 2026-05-26 23:49:04 CEST | WARNING:  el archivado del archivo de WAL «000000010000000000000001» falló demasiadas veces, se tratará de nuevo más tarde
+70943373B_03209889D | 127.0.0.1(51353) | 2026-05-26 23:49:22 CEST | LOG:  ejecutar <unnamed>: INSERT INTO Grupo VALUES (3000,'Tell the Avivs','Pop','IS','Israeleslegitimo.com')
+70943373B_03209889D | 127.0.0.1(51353) | 2026-05-26 23:49:23 CEST | ERROR:  llave duplicada viola restricción de unicidad «grupo_pkey»
+70943373B_03209889D | 127.0.0.1(51353) | 2026-05-26 23:49:23 CEST | DETALLE:  Ya existe la llave (codigo_grupo)=(3000).
+70943373B_03209889D | 127.0.0.1(51353) | 2026-05-26 23:49:23 CEST | CONTEXTO:  remote SQL command: INSERT INTO public.grupo(codigo_grupo, nombre, genero_musical, pais, sitio_web) VALUES ($1, $2, $3, $4, $5)
+70943373B_03209889D | 127.0.0.1(51353) | 2026-05-26 23:49:23 CEST | SENTENCIA:  INSERT INTO Grupo VALUES (3000,'Tell the Avivs','Pop','IS','Israeleslegitimo.com')
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:50:04 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:50:04 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:50:05 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:50:05 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:50:06 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:50:06 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+70943373B_03209889D |  | 2026-05-26 23:50:06 CEST | WARNING:  el archivado del archivo de WAL «000000010000000000000001» falló demasiadas veces, se tratará de nuevo más tarde
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:51:06 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:51:06 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:51:07 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:51:07 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:51:08 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:51:08 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+70943373B_03209889D |  | 2026-05-26 23:51:08 CEST | WARNING:  el archivado del archivo de WAL «000000010000000000000001» falló demasiadas veces, se tratará de nuevo más tarde
+70943373B_03209889D | 127.0.0.1(51362) | 2026-05-26 23:51:13 CEST | LOG:  ejecutar <unnamed>: CREATE PUBLICATION pub_grupos
+	FOR ALL TABLES
+70943373B_03209889D | 127.0.0.1(51362) | 2026-05-26 23:51:13 CEST | ERROR:  la publicación «pub_grupos» ya existe
+70943373B_03209889D | 127.0.0.1(51362) | 2026-05-26 23:51:13 CEST | SENTENCIA:  CREATE PUBLICATION pub_grupos
+	FOR ALL TABLES
+70943373B_03209889D | 127.0.0.1(51362) | 2026-05-26 23:51:17 CEST | LOG:  ejecutar <unnamed>: INSERT INTO Grupo VALUES (5,'Neta ´n the Yahus', 'Ska religioso', 'Israhell', 'BigYahu.is')
+70943373B_03209889D | 127.0.0.1(51362) | 2026-05-26 23:51:17 CEST | ERROR:  llave duplicada viola restricción de unicidad «grupo_pkey»
+70943373B_03209889D | 127.0.0.1(51362) | 2026-05-26 23:51:17 CEST | DETALLE:  Ya existe la llave (codigo_grupo)=(5).
+70943373B_03209889D | 127.0.0.1(51362) | 2026-05-26 23:51:17 CEST | CONTEXTO:  remote SQL command: INSERT INTO public.grupo(codigo_grupo, nombre, genero_musical, pais, sitio_web) VALUES ($1, $2, $3, $4, $5)
+70943373B_03209889D | 127.0.0.1(51362) | 2026-05-26 23:51:17 CEST | SENTENCIA:  INSERT INTO Grupo VALUES (5,'Neta ´n the Yahus', 'Ska religioso', 'Israhell', 'BigYahu.is')
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:52:08 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:52:08 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:52:09 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:52:09 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:52:10 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:52:10 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+70943373B_03209889D |  | 2026-05-26 23:52:10 CEST | WARNING:  el archivado del archivo de WAL «000000010000000000000001» falló demasiadas veces, se tratará de nuevo más tarde
+70943373B_03209889D | 192.168.50.170(51383) | 2026-05-26 23:52:33 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51383) | 2026-05-26 23:52:33 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51383) | 2026-05-26 23:52:33 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51383) | 2026-05-26 23:52:33 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51383) | 2026-05-26 23:52:33 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51383) | 2026-05-26 23:52:33 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51383) | 2026-05-26 23:52:33 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51383) | 2026-05-26 23:52:33 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51383) | 2026-05-26 23:52:33 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51383) | 2026-05-26 23:52:33 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51384) | 2026-05-26 23:52:38 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51384) | 2026-05-26 23:52:38 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51384) | 2026-05-26 23:52:38 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51384) | 2026-05-26 23:52:38 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51384) | 2026-05-26 23:52:38 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51384) | 2026-05-26 23:52:38 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51384) | 2026-05-26 23:52:38 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51384) | 2026-05-26 23:52:38 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51384) | 2026-05-26 23:52:38 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51384) | 2026-05-26 23:52:38 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51385) | 2026-05-26 23:52:43 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51385) | 2026-05-26 23:52:43 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51385) | 2026-05-26 23:52:43 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51385) | 2026-05-26 23:52:43 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51385) | 2026-05-26 23:52:43 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51385) | 2026-05-26 23:52:43 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51385) | 2026-05-26 23:52:43 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51385) | 2026-05-26 23:52:43 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51385) | 2026-05-26 23:52:43 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51385) | 2026-05-26 23:52:43 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51386) | 2026-05-26 23:52:48 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51386) | 2026-05-26 23:52:48 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51386) | 2026-05-26 23:52:48 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51386) | 2026-05-26 23:52:48 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51386) | 2026-05-26 23:52:48 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51386) | 2026-05-26 23:52:48 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51386) | 2026-05-26 23:52:48 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51386) | 2026-05-26 23:52:48 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51386) | 2026-05-26 23:52:48 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51386) | 2026-05-26 23:52:48 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51387) | 2026-05-26 23:52:53 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51387) | 2026-05-26 23:52:53 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51387) | 2026-05-26 23:52:53 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51387) | 2026-05-26 23:52:53 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51387) | 2026-05-26 23:52:53 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51387) | 2026-05-26 23:52:53 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51387) | 2026-05-26 23:52:53 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51387) | 2026-05-26 23:52:53 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51387) | 2026-05-26 23:52:53 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51387) | 2026-05-26 23:52:53 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51388) | 2026-05-26 23:52:58 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51388) | 2026-05-26 23:52:58 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51388) | 2026-05-26 23:52:58 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51388) | 2026-05-26 23:52:58 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51388) | 2026-05-26 23:52:58 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51388) | 2026-05-26 23:52:58 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51388) | 2026-05-26 23:52:58 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51388) | 2026-05-26 23:52:58 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51388) | 2026-05-26 23:52:58 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51388) | 2026-05-26 23:52:58 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51389) | 2026-05-26 23:53:03 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51389) | 2026-05-26 23:53:03 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51389) | 2026-05-26 23:53:03 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51389) | 2026-05-26 23:53:03 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51389) | 2026-05-26 23:53:03 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51389) | 2026-05-26 23:53:03 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51389) | 2026-05-26 23:53:03 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51389) | 2026-05-26 23:53:03 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51389) | 2026-05-26 23:53:03 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51389) | 2026-05-26 23:53:03 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51390) | 2026-05-26 23:53:08 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51390) | 2026-05-26 23:53:08 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51390) | 2026-05-26 23:53:08 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51390) | 2026-05-26 23:53:08 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51390) | 2026-05-26 23:53:08 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51390) | 2026-05-26 23:53:08 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51390) | 2026-05-26 23:53:08 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51390) | 2026-05-26 23:53:08 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51390) | 2026-05-26 23:53:08 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51390) | 2026-05-26 23:53:08 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:53:10 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:53:10 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:53:11 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:53:11 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:53:12 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:53:12 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+70943373B_03209889D |  | 2026-05-26 23:53:12 CEST | WARNING:  el archivado del archivo de WAL «000000010000000000000001» falló demasiadas veces, se tratará de nuevo más tarde
+70943373B_03209889D | 192.168.50.170(51391) | 2026-05-26 23:53:13 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51391) | 2026-05-26 23:53:13 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51391) | 2026-05-26 23:53:13 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51391) | 2026-05-26 23:53:13 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51391) | 2026-05-26 23:53:13 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51391) | 2026-05-26 23:53:13 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51391) | 2026-05-26 23:53:13 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51391) | 2026-05-26 23:53:13 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51391) | 2026-05-26 23:53:13 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51391) | 2026-05-26 23:53:13 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51392) | 2026-05-26 23:53:18 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51392) | 2026-05-26 23:53:18 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51392) | 2026-05-26 23:53:18 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51392) | 2026-05-26 23:53:18 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51392) | 2026-05-26 23:53:18 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51392) | 2026-05-26 23:53:18 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51392) | 2026-05-26 23:53:18 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51392) | 2026-05-26 23:53:18 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51392) | 2026-05-26 23:53:18 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51392) | 2026-05-26 23:53:18 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51393) | 2026-05-26 23:53:23 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51393) | 2026-05-26 23:53:23 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51393) | 2026-05-26 23:53:23 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51393) | 2026-05-26 23:53:23 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51393) | 2026-05-26 23:53:23 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51393) | 2026-05-26 23:53:23 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51393) | 2026-05-26 23:53:23 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51393) | 2026-05-26 23:53:23 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51393) | 2026-05-26 23:53:23 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51393) | 2026-05-26 23:53:23 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51394) | 2026-05-26 23:53:28 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51394) | 2026-05-26 23:53:28 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51394) | 2026-05-26 23:53:28 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51394) | 2026-05-26 23:53:28 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51394) | 2026-05-26 23:53:28 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51394) | 2026-05-26 23:53:28 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51394) | 2026-05-26 23:53:28 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51394) | 2026-05-26 23:53:28 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51394) | 2026-05-26 23:53:28 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51394) | 2026-05-26 23:53:28 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51395) | 2026-05-26 23:53:33 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51395) | 2026-05-26 23:53:33 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51395) | 2026-05-26 23:53:33 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51395) | 2026-05-26 23:53:33 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51395) | 2026-05-26 23:53:33 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51395) | 2026-05-26 23:53:33 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51395) | 2026-05-26 23:53:33 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51395) | 2026-05-26 23:53:33 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51395) | 2026-05-26 23:53:33 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51395) | 2026-05-26 23:53:33 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51404) | 2026-05-26 23:53:38 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51404) | 2026-05-26 23:53:38 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51404) | 2026-05-26 23:53:38 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51404) | 2026-05-26 23:53:38 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51404) | 2026-05-26 23:53:38 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51404) | 2026-05-26 23:53:38 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51404) | 2026-05-26 23:53:38 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51404) | 2026-05-26 23:53:38 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51404) | 2026-05-26 23:53:38 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51404) | 2026-05-26 23:53:38 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D |  | 2026-05-26 23:53:41 CEST | LOG:  empezando checkpoint: time
+70943373B_03209889D |  | 2026-05-26 23:53:41 CEST | LOG:  checkpoint completo: escritos 1 búfers (0.0%); escritos 1 búfers SLRU; 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.116 s, sync=0.003 s, total=0.129 s; archivos sincronizados=2, más largo=0.002 s, promedio=0.002 s; distancia=7 kB, estimación=551 kB; lsn=0/1209B0D0, lsn de redo=0/1209B078
+70943373B_03209889D | 192.168.50.170(51407) | 2026-05-26 23:53:43 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51407) | 2026-05-26 23:53:43 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51407) | 2026-05-26 23:53:43 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51407) | 2026-05-26 23:53:43 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51407) | 2026-05-26 23:53:43 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51407) | 2026-05-26 23:53:43 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51407) | 2026-05-26 23:53:43 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51407) | 2026-05-26 23:53:43 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51407) | 2026-05-26 23:53:43 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51407) | 2026-05-26 23:53:43 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51408) | 2026-05-26 23:53:48 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51408) | 2026-05-26 23:53:48 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51408) | 2026-05-26 23:53:48 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51408) | 2026-05-26 23:53:48 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51408) | 2026-05-26 23:53:48 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51408) | 2026-05-26 23:53:48 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51408) | 2026-05-26 23:53:48 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51408) | 2026-05-26 23:53:48 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51408) | 2026-05-26 23:53:48 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51408) | 2026-05-26 23:53:48 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51409) | 2026-05-26 23:53:53 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51409) | 2026-05-26 23:53:53 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51409) | 2026-05-26 23:53:53 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51409) | 2026-05-26 23:53:53 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51409) | 2026-05-26 23:53:53 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51409) | 2026-05-26 23:53:53 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51409) | 2026-05-26 23:53:53 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51409) | 2026-05-26 23:53:53 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51409) | 2026-05-26 23:53:53 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51409) | 2026-05-26 23:53:53 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51410) | 2026-05-26 23:53:58 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51410) | 2026-05-26 23:53:58 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51410) | 2026-05-26 23:53:58 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51410) | 2026-05-26 23:53:58 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51410) | 2026-05-26 23:53:58 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51410) | 2026-05-26 23:53:58 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51410) | 2026-05-26 23:53:58 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51410) | 2026-05-26 23:53:58 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51410) | 2026-05-26 23:53:58 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51410) | 2026-05-26 23:53:58 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51412) | 2026-05-26 23:54:03 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51412) | 2026-05-26 23:54:03 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51412) | 2026-05-26 23:54:03 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51412) | 2026-05-26 23:54:03 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51412) | 2026-05-26 23:54:03 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51412) | 2026-05-26 23:54:03 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51412) | 2026-05-26 23:54:03 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51412) | 2026-05-26 23:54:03 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51412) | 2026-05-26 23:54:03 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51412) | 2026-05-26 23:54:03 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51413) | 2026-05-26 23:54:08 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51413) | 2026-05-26 23:54:08 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51413) | 2026-05-26 23:54:08 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51413) | 2026-05-26 23:54:08 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51413) | 2026-05-26 23:54:08 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51413) | 2026-05-26 23:54:08 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51413) | 2026-05-26 23:54:08 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51413) | 2026-05-26 23:54:08 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51413) | 2026-05-26 23:54:08 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51413) | 2026-05-26 23:54:08 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:54:12 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:54:12 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:54:13 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:54:13 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+70943373B_03209889D | 192.168.50.170(51416) | 2026-05-26 23:54:13 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51416) | 2026-05-26 23:54:13 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51416) | 2026-05-26 23:54:13 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51416) | 2026-05-26 23:54:13 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51416) | 2026-05-26 23:54:13 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51416) | 2026-05-26 23:54:13 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51416) | 2026-05-26 23:54:13 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51416) | 2026-05-26 23:54:13 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51416) | 2026-05-26 23:54:13 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51416) | 2026-05-26 23:54:13 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:54:14 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:54:14 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+70943373B_03209889D |  | 2026-05-26 23:54:14 CEST | WARNING:  el archivado del archivo de WAL «000000010000000000000001» falló demasiadas veces, se tratará de nuevo más tarde
+70943373B_03209889D | 192.168.50.170(51428) | 2026-05-26 23:54:18 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51428) | 2026-05-26 23:54:18 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51428) | 2026-05-26 23:54:18 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51428) | 2026-05-26 23:54:18 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51428) | 2026-05-26 23:54:18 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51428) | 2026-05-26 23:54:18 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51428) | 2026-05-26 23:54:18 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51428) | 2026-05-26 23:54:18 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51428) | 2026-05-26 23:54:18 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51428) | 2026-05-26 23:54:18 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51429) | 2026-05-26 23:54:23 CEST | LOG:  no se pudo enviar datos al cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51429) | 2026-05-26 23:54:23 CEST | FATAL:  se ha perdido la conexión al cliente
+70943373B_03209889D | 192.168.50.170(51437) | 2026-05-26 23:54:57 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51437) | 2026-05-26 23:54:57 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51437) | 2026-05-26 23:54:57 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51437) | 2026-05-26 23:54:57 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51437) | 2026-05-26 23:54:57 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51437) | 2026-05-26 23:54:57 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51437) | 2026-05-26 23:54:57 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51437) | 2026-05-26 23:54:57 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51437) | 2026-05-26 23:54:57 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51437) | 2026-05-26 23:54:57 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51438) | 2026-05-26 23:55:02 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51438) | 2026-05-26 23:55:02 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51438) | 2026-05-26 23:55:02 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51438) | 2026-05-26 23:55:02 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51438) | 2026-05-26 23:55:02 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51438) | 2026-05-26 23:55:02 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51438) | 2026-05-26 23:55:02 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51438) | 2026-05-26 23:55:02 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51438) | 2026-05-26 23:55:02 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51438) | 2026-05-26 23:55:02 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51440) | 2026-05-26 23:55:07 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51440) | 2026-05-26 23:55:07 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51440) | 2026-05-26 23:55:07 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51440) | 2026-05-26 23:55:07 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51440) | 2026-05-26 23:55:07 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51440) | 2026-05-26 23:55:07 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51440) | 2026-05-26 23:55:07 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51440) | 2026-05-26 23:55:07 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51440) | 2026-05-26 23:55:07 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51440) | 2026-05-26 23:55:07 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51441) | 2026-05-26 23:55:12 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51441) | 2026-05-26 23:55:12 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51441) | 2026-05-26 23:55:12 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51441) | 2026-05-26 23:55:12 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51441) | 2026-05-26 23:55:12 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51441) | 2026-05-26 23:55:12 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51441) | 2026-05-26 23:55:12 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51441) | 2026-05-26 23:55:12 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51441) | 2026-05-26 23:55:12 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51441) | 2026-05-26 23:55:12 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:55:14 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:55:14 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:55:15 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:55:15 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:55:16 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:55:16 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+70943373B_03209889D |  | 2026-05-26 23:55:16 CEST | WARNING:  el archivado del archivo de WAL «000000010000000000000001» falló demasiadas veces, se tratará de nuevo más tarde
+70943373B_03209889D | 192.168.50.170(51442) | 2026-05-26 23:55:17 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51442) | 2026-05-26 23:55:17 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51442) | 2026-05-26 23:55:17 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51442) | 2026-05-26 23:55:17 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51442) | 2026-05-26 23:55:17 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51442) | 2026-05-26 23:55:17 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51442) | 2026-05-26 23:55:17 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51442) | 2026-05-26 23:55:17 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51442) | 2026-05-26 23:55:17 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51442) | 2026-05-26 23:55:17 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51445) | 2026-05-26 23:55:22 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51445) | 2026-05-26 23:55:22 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51445) | 2026-05-26 23:55:22 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51445) | 2026-05-26 23:55:22 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51445) | 2026-05-26 23:55:22 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51445) | 2026-05-26 23:55:22 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51445) | 2026-05-26 23:55:22 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51445) | 2026-05-26 23:55:22 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51445) | 2026-05-26 23:55:22 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51445) | 2026-05-26 23:55:22 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 127.0.0.1(51431) | 2026-05-26 23:55:24 CEST | LOG:  ejecutar <unnamed>: INSERT INTO Grupo VALUES (666,'Satanyahu y los lil Trumpets','Rock','United States of Israel','yanosemeocurrenada.com')
+70943373B_03209889D | 127.0.0.1(51431) | 2026-05-26 23:55:24 CEST | ERROR:  llave duplicada viola restricción de unicidad «grupo_pkey»
+70943373B_03209889D | 127.0.0.1(51431) | 2026-05-26 23:55:24 CEST | DETALLE:  Ya existe la llave (codigo_grupo)=(666).
+70943373B_03209889D | 127.0.0.1(51431) | 2026-05-26 23:55:24 CEST | CONTEXTO:  remote SQL command: INSERT INTO public.grupo(codigo_grupo, nombre, genero_musical, pais, sitio_web) VALUES ($1, $2, $3, $4, $5)
+70943373B_03209889D | 127.0.0.1(51431) | 2026-05-26 23:55:24 CEST | SENTENCIA:  INSERT INTO Grupo VALUES (666,'Satanyahu y los lil Trumpets','Rock','United States of Israel','yanosemeocurrenada.com')
+70943373B_03209889D | 192.168.50.170(51448) | 2026-05-26 23:55:27 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51448) | 2026-05-26 23:55:27 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51448) | 2026-05-26 23:55:27 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51448) | 2026-05-26 23:55:27 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51448) | 2026-05-26 23:55:27 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51448) | 2026-05-26 23:55:27 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51448) | 2026-05-26 23:55:27 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51448) | 2026-05-26 23:55:27 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51448) | 2026-05-26 23:55:27 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51448) | 2026-05-26 23:55:27 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51450) | 2026-05-26 23:55:32 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51450) | 2026-05-26 23:55:32 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51450) | 2026-05-26 23:55:32 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51450) | 2026-05-26 23:55:32 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51450) | 2026-05-26 23:55:32 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51450) | 2026-05-26 23:55:32 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51450) | 2026-05-26 23:55:32 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51450) | 2026-05-26 23:55:32 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51450) | 2026-05-26 23:55:32 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51450) | 2026-05-26 23:55:32 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51451) | 2026-05-26 23:55:37 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51451) | 2026-05-26 23:55:37 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51451) | 2026-05-26 23:55:37 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51451) | 2026-05-26 23:55:37 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51451) | 2026-05-26 23:55:37 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51451) | 2026-05-26 23:55:37 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51451) | 2026-05-26 23:55:37 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51451) | 2026-05-26 23:55:37 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51451) | 2026-05-26 23:55:37 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51451) | 2026-05-26 23:55:37 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51452) | 2026-05-26 23:55:42 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51452) | 2026-05-26 23:55:42 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51452) | 2026-05-26 23:55:42 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51452) | 2026-05-26 23:55:42 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51452) | 2026-05-26 23:55:42 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51452) | 2026-05-26 23:55:42 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51452) | 2026-05-26 23:55:42 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51452) | 2026-05-26 23:55:42 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51452) | 2026-05-26 23:55:42 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51452) | 2026-05-26 23:55:42 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51453) | 2026-05-26 23:55:47 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51453) | 2026-05-26 23:55:47 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51453) | 2026-05-26 23:55:47 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51453) | 2026-05-26 23:55:47 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51453) | 2026-05-26 23:55:47 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51453) | 2026-05-26 23:55:47 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51453) | 2026-05-26 23:55:47 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51453) | 2026-05-26 23:55:47 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51453) | 2026-05-26 23:55:47 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51453) | 2026-05-26 23:55:47 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51456) | 2026-05-26 23:55:52 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51456) | 2026-05-26 23:55:52 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51456) | 2026-05-26 23:55:52 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51456) | 2026-05-26 23:55:52 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51456) | 2026-05-26 23:55:52 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51456) | 2026-05-26 23:55:52 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51456) | 2026-05-26 23:55:52 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51456) | 2026-05-26 23:55:52 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51456) | 2026-05-26 23:55:52 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51456) | 2026-05-26 23:55:52 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51457) | 2026-05-26 23:55:53 CEST | LOG:  iniciando la decodificación lógica para el slot «sub_grupos»
+70943373B_03209889D | 192.168.50.170(51457) | 2026-05-26 23:55:53 CEST | DETALLE:  Transacciones en flujo comprometiendo después de 0/12080BC0, leyendo WAL desde 0/12080B88.
+70943373B_03209889D | 192.168.50.170(51457) | 2026-05-26 23:55:53 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51457) | 2026-05-26 23:55:53 CEST | LOG:  la decodificación lógica encontró un punto consistente en 0/12080B88
+70943373B_03209889D | 192.168.50.170(51457) | 2026-05-26 23:55:53 CEST | DETALLE:  No hay transacciones en ejecución.
+70943373B_03209889D | 192.168.50.170(51457) | 2026-05-26 23:55:53 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51457) | 2026-05-26 23:55:53 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51457) | 2026-05-26 23:55:53 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.170(51457) | 2026-05-26 23:55:53 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51457) | 2026-05-26 23:55:53 CEST | SENTENCIA:  START_REPLICATION SLOT "sub_grupos" LOGICAL 0/0 (proto_version '4', streaming 'parallel', origin 'any', publication_names '"pub_grupos"')
+70943373B_03209889D | 192.168.50.140(58101) | 2026-05-26 23:55:55 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.140(58095) | 2026-05-26 23:55:55 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51341) | 2026-05-26 23:55:55 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51341) | 2026-05-26 23:55:55 CEST | SENTENCIA:  START_REPLICATION 0/12000000 TIMELINE 1
+70943373B_03209889D | 192.168.50.170(51341) | 2026-05-26 23:55:55 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51341) | 2026-05-26 23:55:55 CEST | SENTENCIA:  START_REPLICATION 0/12000000 TIMELINE 1
+70943373B_03209889D | 192.168.50.170(51467) | 2026-05-26 23:55:56 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51467) | 2026-05-26 23:55:56 CEST | SENTENCIA:  START_REPLICATION 0/12000000 TIMELINE 1
+70943373B_03209889D | 192.168.50.170(51467) | 2026-05-26 23:55:56 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51467) | 2026-05-26 23:55:56 CEST | SENTENCIA:  START_REPLICATION 0/12000000 TIMELINE 1
+70943373B_03209889D | 192.168.50.170(51469) | 2026-05-26 23:55:56 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51469) | 2026-05-26 23:55:56 CEST | SENTENCIA:  START_REPLICATION 0/12000000 TIMELINE 1
+70943373B_03209889D | 192.168.50.170(51469) | 2026-05-26 23:55:56 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51469) | 2026-05-26 23:55:56 CEST | SENTENCIA:  START_REPLICATION 0/12000000 TIMELINE 1
+70943373B_03209889D | 192.168.50.170(51470) | 2026-05-26 23:56:09 CEST | LOG:  no se pudo recibir datos del cliente: unrecognized winsock error 10054
+70943373B_03209889D | 192.168.50.170(51470) | 2026-05-26 23:56:09 CEST | SENTENCIA:  START_REPLICATION 0/12000000 TIMELINE 1
+70943373B_03209889D | 192.168.50.170(51470) | 2026-05-26 23:56:09 CEST | LOG:  se encontró fin de archivo inesperado en la conexión standby
+70943373B_03209889D | 192.168.50.170(51470) | 2026-05-26 23:56:09 CEST | SENTENCIA:  START_REPLICATION 0/12000000 TIMELINE 1
+70943373B_03209889D |  | 2026-05-26 23:56:13 CEST | LOG:  apagando
+70943373B_03209889D |  | 2026-05-26 23:56:13 CEST | LOG:  empezando checkpoint: shutdown immediate
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:56:13 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:56:13 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+70943373B_03209889D |  | 2026-05-26 23:56:13 CEST | LOG:  checkpoint completo: escritos 0 búfers (0.0%); escritos 0 búfers SLRU; 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.001 s, sync=0.001 s, total=0.046 s; archivos sincronizados=0, más largo=0.000 s, promedio=0.000 s; distancia=15763 kB, estimación=15763 kB; lsn=0/13000028, lsn de redo=0/13000028
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:56:13 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:56:13 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+70943373B_03209889D | 192.168.50.170(51472) | 2026-05-26 23:56:13 CEST | FATAL:  el sistema de base de datos está apagándose
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:56:14 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:56:14 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+70943373B_03209889D |  | 2026-05-26 23:56:14 CEST | WARNING:  el archivado del archivo de WAL «000000010000000000000001» falló demasiadas veces, se tratará de nuevo más tarde
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:56:14 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:56:14 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:56:15 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:56:15 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+El sistema no puede encontrar la ruta especificada.
+70943373B_03209889D |  | 2026-05-26 23:56:16 CEST | LOG:  la orden de archivado falló con código de retorno 1
+70943373B_03209889D |  | 2026-05-26 23:56:16 CEST | DETALLE:  La orden fallida era: «copy "pg_wal\000000010000000000000001" "D:/backup/wal/000000010000000000000001"»
+70943373B_03209889D |  | 2026-05-26 23:56:16 CEST | WARNING:  el archivado del archivo de WAL «000000010000000000000001» falló demasiadas veces, se tratará de nuevo más tarde

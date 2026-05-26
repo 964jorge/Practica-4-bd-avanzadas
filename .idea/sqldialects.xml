@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
-    <file url="file://$PROJECT_DIR$/70943373B_03209889D_PL4/Cuestion 1 Jorge.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/70943373B_03209889D_PL4/Cuestion 1 Jose.sql" dialect="PostgreSQL" />
-    <file url="file://$PROJECT_DIR$/70943373B_03209889D_PL4/Cuestion 2 Jorge.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/70943373B_03209889D_PL4/Cuestion 2 Jose.sql" dialect="PostgreSQL" />
-    <file url="file://$PROJECT_DIR$/70943373B_03209889D_PL4/Cuestion 3 Esclavo.sql" dialect="PostgreSQL" />
-    <file url="file://$PROJECT_DIR$/70943373B_03209889D_PL4/Cuestion 3 Maestro.sql" dialect="PostgreSQL" />
-    <file url="file://$PROJECT_DIR$/70943373B_03209889D_PL4/Cuestion 3.sql" dialect="PostgreSQL" />
-    <file url="file://$PROJECT_DIR$/70943373B_03209889D_PL4/Cuestion 4 Esclavo.sql" dialect="PostgreSQL" />
-    <file url="file://$PROJECT_DIR$/70943373B_03209889D_PL4/Cuestion 4 Maestro.sql" dialect="PostgreSQL" />
-    <file url="file://$PROJECT_DIR$/70943373B_03209889D_PL4/Cuestion 5 Esclavo.sql" dialect="PostgreSQL" />
-    <file url="file://$PROJECT_DIR$/70943373B_03209889D_PL4/Cuestion 5 Maestro.sql" dialect="PostgreSQL" />
-    <file url="file://$PROJECT_DIR$/70943373B_03209889D_PL4/Cuestion 5.sql" dialect="PostgreSQL" />
-    <file url="file://$PROJECT_DIR$/70943373B_03209889D_PL4/Cuestion 6 Esclavo.sql" dialect="PostgreSQL" />
-    <file url="file://$PROJECT_DIR$/70943373B_03209889D_PL4/Cuestion 6 Maestro.sql" dialect="PostgreSQL" />
   </component>
 </project>
