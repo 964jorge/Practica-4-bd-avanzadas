@@ -40,6 +40,7 @@ OPTIONS (
 --Importacion de tablas
 
 IMPORT FOREIGN SCHEMA public
+LIMIT TO (canciones, discos, grupo)
 FROM SERVER maestro1_fdw
 INTO public;
 
@@ -92,6 +93,9 @@ CREATE TABLE Entradas (
         ON DELETE RESTRICT ON UPDATE RESTRICT
 );
 
+
+--Comporbacion de tablas:
+SELECT * FROM canciones;
 
 
 

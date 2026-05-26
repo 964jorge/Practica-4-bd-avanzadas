@@ -7,7 +7,7 @@ CREATE SERVER maestro2_fdw
 FOREIGN DATA WRAPPER postgres_fdw
 OPTIONS (
    host '192.168.50.170',
-   dbname 'MUSICOS2',
+   dbname 'postgres',
    port '5432'
 );
 
@@ -80,5 +80,10 @@ CREATE TABLE Canciones (
 --Importacion de tablas
 
 IMPORT FOREIGN SCHEMA public
+EXCEPT (canciones, discos, grupo)
 FROM SERVER maestro2_fdw
 INTO public;
+
+
+--Comporbacion de tablas:
+SELECT * FROM conciertos;
