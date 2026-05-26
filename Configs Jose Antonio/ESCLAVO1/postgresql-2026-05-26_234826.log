@@ -1,0 +1,24 @@
+70943373B_03209889D |  | 2026-05-26 23:48:26 CEST | LOG:  iniciando PostgreSQL 18.1 on x86_64-windows, compiled by msvc-19.44.35221, 64-bit
+70943373B_03209889D |  | 2026-05-26 23:48:26 CEST | LOG:  escuchando en la dirección IPv6 «::», port 5433
+70943373B_03209889D |  | 2026-05-26 23:48:26 CEST | LOG:  escuchando en la dirección IPv4 «0.0.0.0», port 5433
+70943373B_03209889D |  | 2026-05-26 23:48:26 CEST | LOG:  el sistema de bases de datos fue apagado durante la recuperación en 2026-05-26 23:48:05 CEST
+70943373B_03209889D |  | 2026-05-26 23:48:26 CEST | LOG:  entrando al modo standby
+70943373B_03209889D |  | 2026-05-26 23:48:26 CEST | LOG:  redo comienza en 2F/ED09E538
+70943373B_03209889D |  | 2026-05-26 23:48:26 CEST | LOG:  el estado de recuperación consistente fue alcanzado en 2F/ED09E678
+70943373B_03209889D |  | 2026-05-26 23:48:26 CEST | LOG:  largo de registro no válido en 2F/ED09E678: se esperaba al menos 24, se obtuvo 0
+70943373B_03209889D |  | 2026-05-26 23:48:26 CEST | LOG:  el sistema de bases de datos está listo para aceptar conexiones de sólo lectura
+70943373B_03209889D |  | 2026-05-26 23:48:26 CEST | LOG:  iniciando el flujo de WAL desde el primario en 2F/ED000000 en el timeline 1
+70943373B_03209889D |  | 2026-05-26 23:53:41 CEST | LOG:  empezando restartpoint: time
+70943373B_03209889D |  | 2026-05-26 23:53:41 CEST | LOG:  restartpoint complete: wrote 4 buffers (0.0%), wrote 2 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0.439 s, sync=0.127 s, total=0.677 s; sync files=4, longest=0.042 s, average=0.032 s; distance=16 kB, estimate=16 kB; lsn=2F/ED0A25D0, redo lsn=2F/ED0A2578
+70943373B_03209889D |  | 2026-05-26 23:53:41 CEST | LOG:  restartpoint de recuperación en 2F/ED0A2578
+70943373B_03209889D |  | 2026-05-26 23:53:41 CEST | DETALLE:  Última transacción completada al tiempo de registro 2026-05-26 23:51:17.087933+02.
+70943373B_03209889D |  | 2026-05-26 23:56:12 CEST | LOG:  proceso receptor de WAL (PID 120560) fue terminado por una excepción 0xC000013A
+70943373B_03209889D |  | 2026-05-26 23:56:12 CEST | HINT:  Vea el archivo «ntstatus.h» para una descripción del valor hexadecimal.
+70943373B_03209889D |  | 2026-05-26 23:56:12 CEST | LOG:  terminando todos los otros procesos de servidor activos
+70943373B_03209889D |  | 2026-05-26 23:56:12 CEST | LOG:  todos los procesos fueron terminados; reinicializando
+70943373B_03209889D |  | 2026-05-26 23:56:13 CEST | LOG:  el sistema de bases de datos fue interrumpido durante la recuperación en el instante de registro 2026-05-26 23:53:32 CEST
+70943373B_03209889D |  | 2026-05-26 23:56:13 CEST | HINT:  Si esto ha ocurrido más de una vez, algunos datos podrían estar corruptos y podría ser necesario escoger un punto de recuperación anterior.
+70943373B_03209889D |  | 2026-05-26 23:56:14 CEST | LOG:  proceso de inicio (PID 65192) fue terminado por una excepción 0xC000013A
+70943373B_03209889D |  | 2026-05-26 23:56:14 CEST | HINT:  Vea el archivo «ntstatus.h» para una descripción del valor hexadecimal.
+70943373B_03209889D |  | 2026-05-26 23:56:14 CEST | LOG:  abortando el inicio debido a una falla en el procesamiento de inicio
+70943373B_03209889D |  | 2026-05-26 23:56:14 CEST | LOG:  el sistema de bases de datos está apagado
